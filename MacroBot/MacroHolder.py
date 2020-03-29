@@ -5,6 +5,10 @@ from MacroBot.Message import Message
 class MacroHolder:
     def __init__(self, data):
         self.macros = data
+        print(data)
+        for key, value in data.items():
+            self.macros[key] = Macro(value)
+        print(self.macros)
 
     def has_macro(self, name:str) -> bool:
         return name in self.macros

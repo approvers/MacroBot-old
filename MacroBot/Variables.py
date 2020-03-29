@@ -3,12 +3,15 @@ from MacroBot.Message import Message
 
 
 class Variables:
-    def __init__(self):
-        self.vars = {
-            "send_content":None,
-            "send_channel":None,
-            "message":None
-        }
+    def __init__(self, data=None):
+        if data is None:
+            self.vars = {
+                "send_content":None,
+                "send_channel":None,
+                "message":None
+            }
+            return
+        self.vars = data
 
     
     def has_var(self):

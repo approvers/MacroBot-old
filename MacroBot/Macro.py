@@ -4,12 +4,17 @@ from MacroBot.Message import Message
 
 
 class Macro:
-    def __init__(self):
-        self.event = ""
-        self.code = ""
-        self.vars = Variables()
+    def __init__(self, data=None):
+        if data is None:
+            self.event = ""
+            self.code = ""
+            self.vars = Variables()
+            self.globals = {}
+            return
+        self.event   = data["event"]
+        self.code    = data["code"]
+        self.vars    = Variables(data["vars"])
         self.globals = {}
-
 
     async def run(self):
         try:
@@ -21,7 +26,6 @@ class Macro:
             print(str(type(E)) + str(E))
 
         self.globals = {}
-
 
     async def loop(self):
         if self.event != "loop":

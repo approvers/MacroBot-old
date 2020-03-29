@@ -21,8 +21,9 @@ class Client(discord.Client):
             return
         with open("MacroBot/data.json", encoding="utf-8") as f:
             data = json.load(f)
-        for key, value in data:
+        for key, value in data.items():
             data[key]["vars"]["send_channel"] = self.get_channel(value["vars"]["send_channel"])
+            data[key]["vars"]["message"] = None
         self.__receiver = MessageReceiver(data)
 
     async def on_message(self, message):

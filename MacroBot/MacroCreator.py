@@ -6,16 +6,16 @@ from MacroBot.Message import Message
 
 
 class MacroCreator:
-    __slots__ = ["__macros", "name"]
+    __slots__ = ["macros", "name"]
     __mode = ModeHolder()
 
 
     def __init__(self, data):
-        self.__macros = MacroHolder(data)
+        self.macros = MacroHolder(data)
 
 
     def has_macro(self) -> bool:
-        return self.__macros.has_macro(self.name)
+        return self.macros.has_macro(self.name)
 
 
     def __defined(self) -> str:
@@ -33,13 +33,13 @@ class MacroCreator:
         if self.has_macro():
             return self.__predefined()
         
-        self.__macros.add_macro(self.name)
+        self.macros.add_macro(self.name)
         return self.__defined()
     def __del(self) -> str:
         if not self.has_macro():
             return self.__undefined()
 
-        self.__macros.del_macro(self.name)
+        self.macros.del_macro(self.name)
         return self.__deleted()
     def __edit(self) -> str:
         if not self.has_macro():
@@ -71,11 +71,11 @@ class MacroCreator:
 
 
     async def edit(self, message:Message):
-        macro = self.__macros.get_macro(self.__mode.get_mode("edit"))
+        macro = self.macros.get_macro(self.__mode.get_mode("edit"))
         await MacroEditor(message, macro).edit()
 
 
     async def loop(self):
-        await self.__macros.loop()
+        await self.macros.loop()
     async def message(self, message:Message):
-        await self.__macros.message(message)
+        await self.macros.message(message)

@@ -3,19 +3,23 @@ import codecs
 
 from MacroBot.Macro import Macro
 
-def saver(macros):
+def save(macros):
     """
     macros: list[Macro]
     """
     save_datas: dict[dict] = {}
     
     for key, m in macros.items():
+        if m.vars.vars["send_channel"] is None:
+            channel_id = None
+        else:
+            channel_id = m.vars.vars["send_channel"].id
         macro:dict = {
             "event": m.event,
             "code" : m.code,
             "vars" : {
-                "channel_id": m.vars["send_channel"].id,
-                "send_content": m.vars["send_content"]
+                "send_channel": channel_id,
+                "send_content": m.vars.vars["send_content"]
             }
         }
         save_datas[key] = macro

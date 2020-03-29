@@ -1,6 +1,6 @@
 from MacroBot.ModeHolder import ModeHolder
 from MacroBot.Message import Message
-from MacroBot.Saver import saver
+from MacroBot.Saver import save
 
 
 class CommandReceiver:
@@ -13,7 +13,7 @@ class CommandReceiver:
         self.command[0] = self.command[0][1:]
     
 
-    async def receive(self):
+    async def receive(self, macros):
         head = self.command[0]
         if head == "write":
             flag = not self.__mode.get_mode("write")
@@ -29,4 +29,5 @@ class CommandReceiver:
             await self.message.send(self.message.author_id)
 
         if head == "save":
-            saver()
+            save(macros)
+            await self.message.send("Data saved!")
