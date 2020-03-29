@@ -19,12 +19,12 @@ class MessageReceiver:
         if message.is_command():
             await CommandReceiver(message).receive()
             return
+        
+        await self.creator.message(message)
 
 
         if not self.__mode.get_mode("write"):
             return
-        
-        await self.creator.message(message)
 
         if self.__mode.get_mode("edit") is not None:
             await self.creator.edit(message)
