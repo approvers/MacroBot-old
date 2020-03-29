@@ -15,6 +15,7 @@ class Client(discord.Client):
         super().run(self.__TOKEN)
 
     async def on_ready(self):
+        print(self.user.name)
         if not os.path.exists("MacroBot/data.json"):
             self.__receiver = MessageReceiver()
             self.macro_loop.start()
