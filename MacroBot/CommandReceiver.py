@@ -1,6 +1,6 @@
 from MacroBot.ModeHolder import ModeHolder
 from MacroBot.Message import Message
-
+from MacroBot.Saver import saver
 
 
 class CommandReceiver:
@@ -27,3 +27,6 @@ class CommandReceiver:
 
         if head == "user_id":
             await self.message.send(self.message.author_id)
+
+        if head == "save":
+            saver()

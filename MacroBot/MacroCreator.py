@@ -10,8 +10,8 @@ class MacroCreator:
     __mode = ModeHolder()
 
 
-    def __init__(self):
-        self.__macros = MacroHolder()
+    def __init__(self, data):
+        self.__macros = MacroHolder(data)
 
 
     def has_macro(self) -> bool:
