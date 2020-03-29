@@ -13,11 +13,11 @@ class MacroCreator:
     def __init__(self):
         self.__macros = MacroHolder()
 
-    
+
     def has_macro(self) -> bool:
         return self.__macros.has_macro(self.name)
 
-    
+
     def __defined(self) -> str:
         return "Macro \""+self.name+"\" defined successfully"
     def __deleted(self) -> str:
