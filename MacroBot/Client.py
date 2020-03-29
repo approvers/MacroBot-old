@@ -1,5 +1,6 @@
 import discord
 import os
+import json
 
 from MacroBot.Message import Message
 from MacroBot.MessageReceiver import MessageReceiver
@@ -8,7 +9,6 @@ from MacroBot.MessageReceiver import MessageReceiver
 
 class Client(discord.Client):
     __TOKEN = os.environ["TOKEN"]
-    __receiver = MessageReceiver()
     
     
     def run(self):
@@ -16,8 +16,15 @@ class Client(discord.Client):
 
 
     async def on_ready(self):
-        pass
-
+        if not os.path.exists("MacroBot/data.json"):
+            self.__receiver = MessageReceiver()
+            return
+        with open("MacroBot/data.json", encoding="utf-8") as f:
+            data = json.load(f)
+        for key, value in data.items():
+            data[key]["vars"]["send_channel"] = self.get_channel(value["vars"]["send_channel"])
+            data[key]["vars"]["message"] = None
+        self.__receiver = MessageReceiver(data)
 
     async def on_message(self, message):
         await self.__receiver.receive(Message(message))

@@ -9,15 +9,15 @@ class MessageReceiver:
     __mode = ModeHolder()
 
 
-    def __init__(self):
-        self.creator = MacroCreator()
+    def __init__(self, data={}):
+        self.creator = MacroCreator(data)
 
     async def receive(self, message:Message):
         if message.author_is_bot():
             return
-        
+
         if message.is_command():
-            await CommandReceiver(message).receive()
+            await CommandReceiver(message).receive(self.creator.macros.macros)
             return
         
         await self.creator.message(message)

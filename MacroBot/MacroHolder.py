@@ -3,9 +3,12 @@ from MacroBot.Message import Message
 
 
 class MacroHolder:
-    def __init__(self):
-        self.macros = {}
-
+    def __init__(self, data):
+        self.macros = data
+        print(data)
+        for key, value in data.items():
+            self.macros[key] = Macro(value)
+        print(self.macros)
 
     def has_macro(self, name:str) -> bool:
         return name in self.macros
@@ -17,7 +20,6 @@ class MacroHolder:
         self.macros[name] = Macro()
     def del_macro(self, name:str):
         del self.macros[name]
-
 
     async def loop(self):
         for macro in self.macros.values():
